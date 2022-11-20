@@ -69,52 +69,7 @@ const Employee: React.FC = () => {
 
   return (
     <div>
-      {/* <div className="create-user">
-        <h3>Create New Employee</h3>
-        <input type="radio" value="Male" name="gender" /> Male
-        <input type="radio" value="Female" name="gender" /> Female
-        <input
-          type="text"
-          placeholder="Enter your name"
-          value={name}
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
-        />
-
-        <input
-          type="date"
-          placeholder="Date of Birth"
-          value={dateOfBirth}
-          onChange={(e) => {
-            setDateOfBirth(e.target.value);
-          }}
-        />
-
-        <input
-          type="text"
-          placeholder="Gender"
-          value={gender}
-          onChange={(e) => {
-            setGender(e.target.value);
-          }}
-        />
-
-        <input
-          type="text"
-          placeholder="Salary"
-          value={salary}
-          onChange={(e) => {
-            setSalary(Number(e.target.value));
-          }}
-        />
-        <br />
-        {isUpdating ? (
-          <button onClick={updateEmployeeHandler}>Update</button>
-        ) : (
-          <button onClick={createEmployeeHandler}>Create</button>
-        )}
-      </div> */}
+      
       {addEmployee && (
         <div>
           <br></br>
