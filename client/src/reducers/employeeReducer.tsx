@@ -21,13 +21,10 @@ const employeeReducer: Reducer<employee[], actions> = (
        case "GOT_EMPLOYEES":
         return [...state, ...action.employees]
        case "DELETED_EMPLOYEE":
-        return [...state.filter((employee) => employee.id !== action.id)]
+        return [...state.filter((employee) => employee._id !== action.id)]
         case "UPDATED_EMPLOYEE":
-            console.log("manye");
-            console.log(action.employee.id)
-            console.log(state[0].id)
 
-        return [...state.map((employee) => employee.id === action.employee.id ? action.employee : employee)]
+        return [...state.map((employee) => employee._id === action.employee._id ? action.employee : employee)]
        default:
         return [...state] 
     }

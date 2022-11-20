@@ -1,64 +1,70 @@
 import expressAsync from "express-async-handler";
-import { now } from "mongoose";
+import Employee from "../models/employeeModel.js";
 
-const createUser = expressAsync(async (req, res) => {
-  const { employee } = req.body;
-  const { name, dateOfBirth, gender, salary } = employee;
+const createEmployee = expressAsync(async (req, res) => {
+  const { name, dateOfBirth, gender, salary } = req.body.employee;
 
-  console.log(req.body);
-  console.log(employee);
+  const employee = await Employee.create({
+    name,
+    dateOfBirth,
+    gender,
+    salary,
+  });
+
+  if (!employee) {
+    throw new Error("can not create a employee");
+  }
+
   res.status(201).json({
-    id: now().toISOString(),
-    name: name,
-    dateOfBirth: dateOfBirth,
-    gender: gender,
-    salary: salary,
+    id: employee._id,
+    name: employee.name,
+    dateOfBirth: employee.dateOfBirth,
+    gender: employee.gender,
+    salary: employee.salary,
   });
 });
 
-const allUsers = async (req, res) => {
-  console.log("all user route get hitted");
-  res.status(200).json([
-    {
-      id: "2022-11-19T20:44:50.209Z",
-      name: "jan",
-      dateOfBirth: "1992-11-11",
-      gender: "Male",
-      salary: "12333",
-    },
-    {
-      id: "2022-11-19T20:45:50.209Z",
-      name: "kb",
-      DateOfBirth: "1992-10-10",
-      gender: "male",
-      salary: "14333",
-    },
-  ]);
-};
+const allEmployees = expressAsync(async (req, res) => {
+  const employees = await Employee.find();
+  res.status(200).json(employees);
+});
 
-const updateUser = async (req, res) => {
-  console.log("update user route get hitted");
-  console.log(req.body)
-  const { employee } = req.body;
+const updateEmployee = expressAsync(async (req, res) => {
+  const employee = await Employee.findById(req.body.employee._id);
+  if (!employee) {
+    res.status(404);
+    throw new Error("employee not found");
+  }
 
-  const { id,name, dateOfBirth, gender, salary } = employee;
-  console.log(employee);
+  const { name, dateOfBirth, gender, salary } = req.body.employee;
 
-  res.status(200).json({
-    "id": id,
-    "name": name,
-    "dateOfBirth": dateOfBirth,
-    "gender": gender,
-    "salary": salary
-  })
-};
+  employee.name = name || employee.name;
+  employee.dateOfBirth = dateOfBirth || employee.dateOfBirth;
+  employee.gender = gender || employee.gender;
+  employee.salary = salary || employee.name;
 
-const deleteUser = async (req, res) => {
-  console.log("delete user route get hitted");
- const {id} = req.params;
+  const updatedEmployee = await employee.save();
+
+  res.status(201).json({
+    _id: updatedEmployee._id,
+    name: updatedEmployee.name,
+    dateOfBirth: updatedEmployee.dateOfBirth,
+    gender: updatedEmployee.gender,
+    salary: updatedEmployee.salary,
+  });
+});
+
+const deleteEmployee = expressAsync(async (req, res) => {
+  const { id } = req.params;
+  const employee = await Employee.findById(id);
+  if (!employee) {
+    res.status(404);
+    throw new Error("employee not found");
+  }
+  await employee.remove();
   res.status(202).json({
     id: id,
   });
-};
+});
 
-export { createUser, allUsers, updateUser, deleteUser };
+export { createEmployee, allEmployees, updateEmployee, deleteEmployee };

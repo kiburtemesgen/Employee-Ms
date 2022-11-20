@@ -11,7 +11,7 @@ const employeeSchema = new mongoose.Schema({
     gender: {
         type: String,
     },
-    rating: {
+    salary: {
         type: Number
     }
 })
