@@ -1,5 +1,5 @@
 import { Reducer } from "redux";
-import { createdEmployeeAction, createEmployeeAction, deletedEmployeeAction, deleteEmployeeAction, getEmployees, gotEmployees, updatedEmployeeAction, updateEmployeeAction } from "../types/actionsType";
+import { createdEmployeeAction, deletedEmployeeAction, gotEmployees, updatedEmployeeAction } from "../types/actionsType";
 import { employee } from "../types/storeType";
 
 type actions = 

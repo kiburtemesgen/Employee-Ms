@@ -2,10 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-import { createStore, applyMiddleware } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import createSagaMiddlware from "redux-saga";
-import reducers from "./reducers";
+
 import { Provider } from "react-redux";
 import store from "./store";
 

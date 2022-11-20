@@ -8,6 +8,8 @@ import {
 } from "../action";
 import { RootState } from "../store";
 import { employee } from "../types/storeType";
+import { FormGroup, Input, Label } from "./Forms";
+import StyledButton from "./StyledButton";
 
 const Employee: React.FC = () => {
   const dispatch = useDispatch();
@@ -69,114 +71,98 @@ const Employee: React.FC = () => {
 
   return (
     <div>
-      
       {addEmployee && (
         <div>
           <br></br>
-          <div className="container">
-            <div className="row">
-              <div className="card col-md-6 offset-md-3 offset-md-3">
-                Create Employee
-                <div className="card-body">
-                  <form>
-                    <div className="form-group">
-                      <label>Name: </label>
-                      <input
-                        placeholder="Name"
-                        name="name"
-                        className="form-control"
-                        value={name}
-                        onChange={(e) => {
-                          setName(e.target.value);
-                        }}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label>Date Of Birth: </label>
-                      <input
-                        type="date"
-                        placeholder="Date Of Birth"
-                        name="dateOfBirth"
-                        className="form-control"
-                        value={dateOfBirth}
-                        onChange={(e) => {
-                          setDateOfBirth(e.target.value);
-                        }}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label className="mx-3"> Gender: </label>
-                      <input
-                        className="ml-3"
-                        type="radio"
-                        value="Male"
-                        name="gender"
-                        onChange={(e) => {
-                          setGender("Male");
-                        }}
-                        checked={gender === "Male" || gender === ""}
-                      />{" "}
-                      Male
-                      <input
-                        className="mx-3"
-                        type="radio"
-                        value="Female"
-                        name="gender"
-                        onChange={(e) => {
-                          setGender("Female");
-                        }}
-                        checked={gender === "Female"}
-                      />{" "}
-                      Female
-                    </div>
-                    <label>Salary: </label>
-                    <input
-                      type="text"
-                      placeholder="Salary"
-                      name="salary"
-                      className="form-control"
-                      value={salary}
-                      onChange={(e) => {
-                        setSalary(Number(e.target.value));
-                      }}
-                    />
-
-                    {isUpdating ? (
-                      <button
-                        className=" my-3 btn btn-success"
-                        onClick={updateEmployeeHandler}
-                      >
-                        Update
-                      </button>
-                    ) : (
-                      <button
-                        className=" my-3 btn btn-success"
-                        onClick={createEmployeeHandler}
-                      >
-                        Save
-                      </button>
-                    )}
-                    <button
-                      className="btn btn-danger"
-                      style={{ marginLeft: "10px" }}
-                      onClick={() => {
-                        setAddEmployee(false);
-                      }}
-                    >
-                      Cancel
-                    </button>
-                  </form>
-                </div>
+          <FormGroup>
+            <form>
+              <div className="form-group">
+                <Label>Name: </Label>
+                <Input
+                  placeholder="Name"
+                  name="name"
+                  className="form-control"
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
+                />
               </div>
-            </div>
-          </div>
+              <div className="form-group">
+                <Label>Date Of Birth: </Label>
+                <Input
+                  type="date"
+                  placeholder="Date Of Birth"
+                  name="dateOfBirth"
+                  className="form-control"
+                  value={dateOfBirth}
+                  onChange={(e) => {
+                    setDateOfBirth(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="form-group">
+                <Label> Gender: </Label>
+                <Input
+                  type="radio"
+                  value="Male"
+                  name="gender"
+                  onChange={(e) => {
+                    setGender("Male");
+                  }}
+                  checked={gender === "Male" || gender === ""}
+                />{" "}
+                <Label>Male</Label>
+                <Input
+                  type="radio"
+                  value="Female"
+                  name="gender"
+                  onChange={(e) => {
+                    setGender("Female");
+                  }}
+                  checked={gender === "Female"}
+                />{" "}
+                <Label>Female</Label>
+              </div>
+              <Label>Salary: </Label>
+              <Input
+                type="text"
+                placeholder="Salary"
+                name="salary"
+                className="form-control"
+                value={salary}
+                onChange={(e) => {
+                  setSalary(Number(e.target.value));
+                }}
+              />
+
+              {isUpdating ? (
+                <StyledButton mainColor="blue" onClick={updateEmployeeHandler}>
+                  Update
+                </StyledButton>
+              ) : (
+                <StyledButton mainColor="green" onClick={createEmployeeHandler}>
+                  Save
+                </StyledButton>
+              )}
+              <StyledButton
+                mainColor="red"
+                style={{ marginLeft: "10px" }}
+                onClick={() => {
+                  setAddEmployee(false);
+                }}
+              >
+                Cancel
+              </StyledButton>
+            </form>
+          </FormGroup>
         </div>
       )}
       <div>
-        <div className="row d-flex justify-content-center">
+        <div style={{ display: "flex", justifyContent: "center" }}>
           {!addEmployee && (
-            <button
-              className=" btn btn-primary justify-content-end"
+            <StyledButton
+              mainColor="green"
               style={{ width: "25%" }}
               onClick={() => {
                 setAddEmployee(true);
@@ -184,59 +170,52 @@ const Employee: React.FC = () => {
             >
               {" "}
               Add Employee
-            </button>
+            </StyledButton>
           )}
         </div>
         <br></br>
         <h2 className="text-center">Employees List</h2>
-        <div className="row px-5">
-          <table className="table table-striped table-bordered">
+        <div
+          style={{ padding: "20px", display: "flex", justifyContent: "center" }}
+        >
+          <table>
             <thead>
-              <tr>
-                <th> Name</th>
-                <th> Gender</th>
-                <th> Salary</th>
-                <th> Actions</th>
+              <tr style={{ borderBottom: "2px solid black" }}>
+                <th style={{ paddingRight: "35px" }}> Name</th>
+                <th style={{ paddingRight: "35px" }}> Gender</th>
+                <th style={{ paddingRight: "35px" }}> Salary</th>
+                <th style={{ paddingRight: "35px", textAlign: "center" }}>
+                  {" "}
+                  Actions
+                </th>
               </tr>
             </thead>
-            <tbody>
-              {employeeList.map((employee) => (
-                <tr key={employee._id}>
+            {employeeList.map((employee) => (
+              <tbody key={employee._id}>
+                <tr style={{ borderBottom: "1px solid black" }}>
                   <td> {employee.name} </td>
                   <td> {employee.gender}</td>
                   <td> {employee.salary}</td>
                   <td>
-                    <button
+                    <StyledButton
+                      mainColor="blue"
                       onClick={() => editEmployeeHandler(employee)}
-                      className="btn btn-info"
                     >
-                      Update{" "}
-                    </button>
-                    <button
-                      style={{ marginLeft: "10px" }}
+                      Update
+                    </StyledButton>
+                    <StyledButton
+                      mainColor="red"
                       onClick={() => deleteEmployeeHandler(employee._id)}
-                      className="btn btn-danger"
                     >
-                      Delete{" "}
-                    </button>
+                      Delete
+                    </StyledButton>
                   </td>
                 </tr>
-              ))}
-            </tbody>
+              </tbody>
+            ))}
           </table>
         </div>
       </div>
-      {/* {employeeList.map((employee: employee) => {
-        return (
-          <div key={employee._id}>
-            <h3>{employee.name}</h3>
-            <button onClick={() => editEmployeeHandler(employee)}>Edit</button>
-            <button onClick={() => deleteEmployeeHandler(employee._id)}>
-              delete
-            </button>
-          </div>
-        );
-      })} */}
     </div>
   );
 };
