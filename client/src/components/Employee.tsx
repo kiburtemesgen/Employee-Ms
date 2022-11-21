@@ -83,7 +83,7 @@ const Employee: React.FC = () => {
                   name="name"
                   className="form-control"
                   value={name}
-                  onChange={(e) => {
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setName(e.target.value);
                   }}
                 />
@@ -96,7 +96,7 @@ const Employee: React.FC = () => {
                   name="dateOfBirth"
                   className="form-control"
                   value={dateOfBirth}
-                  onChange={(e) => {
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     setDateOfBirth(e.target.value);
                   }}
                 />
@@ -107,7 +107,7 @@ const Employee: React.FC = () => {
                   type="radio"
                   value="Male"
                   name="gender"
-                  onChange={(e) => {
+                  onChange={() => {
                     setGender("Male");
                   }}
                   checked={gender === "Male" || gender === ""}
@@ -117,7 +117,7 @@ const Employee: React.FC = () => {
                   type="radio"
                   value="Female"
                   name="gender"
-                  onChange={(e) => {
+                  onChange={() => {
                     setGender("Female");
                   }}
                   checked={gender === "Female"}
@@ -131,7 +131,7 @@ const Employee: React.FC = () => {
                 name="salary"
                 className="form-control"
                 value={salary}
-                onChange={(e) => {
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   setSalary(Number(e.target.value));
                 }}
               />
